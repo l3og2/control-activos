@@ -1,0 +1,41 @@
+### 1. Obtener todos los activos
+GET http://localhost:3000/api/activos
+
+###
+
+### 2. Crear un activo nuevo (RECUERDA CAMBIAR EL ID)
+POST http://localhost:3000/api/activos
+Content-Type: application/json
+
+{
+    "serial_unico": "TEC-099",
+    "marca_modelo": "Teclado Razer BlackWidow",
+    "categoria_id": "699e4aeb6454daf634a2e48f",
+    "estado": "Disponible"
+}
+
+###
+
+### 3. Consulta sencilla: Un activo específico por ID (RECUERDA CAMBIAR EL ID)
+GET http://localhost:3000/api/activos/699e4aeb6454daf634a2e498
+
+###
+
+### 4. Consulta sencilla: Filtrar por estado
+GET http://localhost:3000/api/activos/estado/Asignado
+
+### 5. Actualizar un activo (UPDATE) (RECUERDA CAMBIAR EL ID)
+# Cambiaremos el estado o el modelo de un equipo específico
+PUT http://localhost:3000/api/activos/699e4aeb6454daf634a2e498
+Content-Type: application/json
+
+{
+    "marca_modelo": "Dell Latitude 5420 (Repotenciada)",
+    "estado": "Asignado"
+}
+
+###
+
+### 6. Eliminar un activo (DELETE) (RECUERDA CAMBIAR EL ID)
+# ¡Cuidado! Esto borrará el registro de la base de datos
+DELETE http://localhost:3000/api/activos/699e4aeb6454daf634a2e498   

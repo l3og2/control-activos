@@ -1,4 +1,5 @@
 const Activo = require('../models/Activo');
+const Categoria = require('../models/Categoria');
 
 // 1. CREATE: Crear un nuevo activo (POST)
 exports.crearActivo = async (req, res) => {
@@ -29,7 +30,24 @@ exports.obtenerActivosPorEstado = async (req, res) => {
     const activosFiltrados = await Activo.find({ estado: estado }).populate('categoria_id', 'nombre');
     res.status(200).json(activosFiltrados);
   } catch (error) {
-    res.status(500).json({ mensaje: '❌ Error en la consulta' });
+    res.status(500).json({ mensaje: "Error real:", detalle: error.message });
+  }
+};
+
+// Obtener un solo activo por su ID (GET)
+exports.obtenerActivoPorId = async (req, res) => {
+  try {
+    // Usamos req.params.id para capturar el código que viene en la URL
+    const activo = await Activo.findById(req.params.id).populate('categoria_id', 'nombre');
+    
+    // Si el ID no existe en la BD, avisamos
+    if (!activo) {
+      return res.status(404).json({ mensaje: '❌ Activo no encontrado' });
+    }
+    
+    res.status(200).json(activo);
+  } catch (error) {
+    res.status(500).json({ mensaje: '❌ Error al buscar el activo', detalle: error.message });
   }
 };
 

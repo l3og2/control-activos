@@ -6,6 +6,9 @@ const activoController = require('../controllers/activoController');
 router.post('/', activoController.crearActivo);
 router.get('/', activoController.obtenerActivos);
 
+// El ":id" es un parámetro dinámico
+router.get('/:id', activoController.obtenerActivoPorId);
+
 // Ruta para la consulta sencilla (Ejemplo de uso: /api/activos/estado/Disponible)
 router.get('/estado/:estado', activoController.obtenerActivosPorEstado);
 
