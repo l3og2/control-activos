@@ -10,23 +10,23 @@ Content-Type: application/json
 {
     "serial_unico": "TEC-099",
     "marca_modelo": "Teclado Razer BlackWidow",
-    "categoria_id": "699e4aeb6454daf634a2e48f",
+    "categoria_id": "699fa3a3fd1097b3a010cb76",
     "estado": "Disponible"
 }
 
 ###
 
 ### 3. Consulta sencilla: Un activo específico por ID (RECUERDA CAMBIAR EL ID)
-GET http://localhost:3000/api/activos/699e4aeb6454daf634a2e498
+GET http://localhost:3000/api/activos/69a0eb92566439b172aba36f  
 
 ###
 
 ### 4. Consulta sencilla: Filtrar por estado
-GET http://localhost:3000/api/activos/estado/Asignado
+GET http://localhost:3000/api/activos/estado/Disponible
 
 ### 5. Actualizar un activo (UPDATE) (RECUERDA CAMBIAR EL ID)
 # Cambiaremos el estado o el modelo de un equipo específico
-PUT http://localhost:3000/api/activos/699e4aeb6454daf634a2e498
+PUT http://localhost:3000/api/activos/699fa3a3fd1097b3a010cb80
 Content-Type: application/json
 
 {
@@ -38,4 +38,63 @@ Content-Type: application/json
 
 ### 6. Eliminar un activo (DELETE) (RECUERDA CAMBIAR EL ID)
 # ¡Cuidado! Esto borrará el registro de la base de datos
-DELETE http://localhost:3000/api/activos/699e4aeb6454daf634a2e498   
+DELETE http://localhost:3000/api/activos/699fa3a3fd1097b3a010cb80
+
+
+### --- ASIGNACIONES ------------------------------------------------------
+### A1. Obtener todas las asignaciones
+GET http://localhost:3000/api/asignaciones
+
+### A2. Obtener una asignación por ID (RECUERDA CAMBIAR EL ID)
+GET http://localhost:3000/api/asignaciones/69a0eb92566439b172aba36f 
+
+### A3. Crear una asignación nueva (POST)
+POST http://localhost:3000/api/asignaciones
+Content-Type: application/json
+
+{
+    "fecha_entrega": "2025-04-01",
+    "activo_id": "69a0eb92566439b172aba36f",
+    "empleado_id": "60d5f483fbd12c3a2a9b5678",
+    "observaciones": "Asignación de prueba"
+}
+
+### A4. Actualizar una asignación (PUT) (RECUERDA CAMBIAR EL ID)
+PUT http://localhost:3000/api/asignaciones/60d5f483fbd12c3a2a9b1234
+Content-Type: application/json
+
+{
+    "observaciones": "Cambié el comentario"
+}
+
+### A5. Eliminar una asignación (DELETE) (RECUERDA CAMBIAR EL ID)
+DELETE http://localhost:3000/api/asignaciones/60d5f483fbd12c3a2a9b1234
+
+### --- MANTENIMIENTOS ---------------------------------------------------
+### M1. Obtener todos los mantenimientos
+GET http://localhost:3000/api/mantenimientos
+
+### M2. Obtener un mantenimiento por ID (RECUERDA CAMBIAR EL ID)
+GET http://localhost:3000/api/mantenimientos/60d5f483fbd12c3a2a9b4321
+
+### M3. Crear un mantenimiento nuevo (POST)
+POST http://localhost:3000/api/mantenimientos
+Content-Type: application/json
+
+{
+    "activo_id": "699fa3a3fd1097b3a010cb80",
+    "tecnico_encargado": "Roberto Díaz",
+    "fecha_servicio": "2025-05-10",
+    "costo": 200
+}
+
+### M4. Actualizar un mantenimiento (PUT) (RECUERDA CAMBIAR EL ID)
+PUT http://localhost:3000/api/mantenimientos/60d5f483fbd12c3a2a9b4321
+Content-Type: application/json
+
+{
+    "costo": 225
+}
+
+### M5. Eliminar un mantenimiento (DELETE) (RECUERDA CAMBIAR EL ID)
+DELETE http://localhost:3000/api/mantenimientos/60d5f483fbd12c3a2a9b4321

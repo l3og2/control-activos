@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
 // Ejemplo futuro: app.use('/api/activos', require('./routes/activos'));
 app.use('/api/activos', require('./routes/activoRoutes'));
 
+// rutas adicionales para asignaciones y mantenimientos
+app.use('/api/asignaciones', require('./routes/asignacionRoutes'));
+app.use('/api/mantenimientos', require('./routes/mantenimientoRoutes'));
+
 // 4. Configuración del Puerto y Encendido del Servidor
 const PORT = process.env.PORT || 3000; // Toma el puerto del .env o usa el 3000 por defecto
 

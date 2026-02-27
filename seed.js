@@ -12,7 +12,8 @@ const seedData = async () => {
   await Empleado.deleteMany({});
   await Categoria.deleteMany({});
   await Activo.deleteMany({});
-  // ... limpiar las otras 2
+  await Asignacion.deleteMany({});
+  await Mantenimiento.deleteMany({});
 
   // 2. Insertar Categorías (4 docs)
   const cats = await Categoria.insertMany([
@@ -36,6 +37,19 @@ const seedData = async () => {
     { serial_unico: 'MON-001', marca_modelo: 'HP 24"', categoria_id: cats[1]._id, estado: 'Disponible' },
     { serial_unico: 'LAP-002', marca_modelo: 'MacBook Air', categoria_id: cats[0]._id, estado: 'Disponible' },
     { serial_unico: 'ROU-001', marca_modelo: 'Cisco ISR', categoria_id: cats[3]._id, estado: 'Reparacion' }
+  ]);
+
+  // 5. Insertar asignaciones (usamos IDs de activos y empleados)
+  const asigns = await Asignacion.insertMany([
+    { fecha_entrega: '2025-01-15', activo_id: activos[0]._id, empleado_id: emps[0]._id, observaciones: 'Entrega inicial' },
+    { fecha_entrega: '2025-02-01', activo_id: activos[1]._id, empleado_id: emps[1]._id, observaciones: 'Préstamo temporal' },
+    { fecha_entrega: '2025-03-10', activo_id: activos[2]._id, empleado_id: emps[2]._id, observaciones: 'Asignación de proyecto' }
+  ]);
+
+  // 6. Insertar mantenimientos
+  const mantenimientos = await Mantenimiento.insertMany([
+    { activo_id: activos[3]._id, tecnico_encargado: 'Carlos Gómez', fecha_servicio: new Date('2024-12-01'), costo: 150 },
+    { activo_id: activos[0]._id, tecnico_encargado: 'Ana Ruiz', fecha_servicio: new Date('2025-01-20'), costo: 75 }
   ]);
 
   console.log('🚀 ¡Data insertada con éxito, mi pana!');
