@@ -50,6 +50,9 @@ asignaciones: Registro de qué empleado tiene qué activo.
 
 mantenimientos: Historial de reparaciones y costos.
 
+Visualice el archivo: pruebas.http para ejecutar funciones CRUD.
+
+Nota: Debe tener instalada la extensión: REST Client en VS.
 
 Método,Endpoint,Descripción
 GET,/api/activos,Obtener todos los activos (con populate)
