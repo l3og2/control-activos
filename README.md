@@ -35,7 +35,23 @@ node seed.js
 
 5. Iniciar el servidor:
 
-node index.js
+npm run start   # o npm run dev si tienes nodemon instalado
+
+---
+
+### 🖥️ Interfaz gráfica
+Después de levantar el servidor, navega a http://localhost:3000 en tu navegador. Encontrarás un panel con enlaces a las vistas de empleados, categorías, activos, asignaciones y mantenimientos; desde ahí puedes crear, editar y borrar registros con formularios dinámicos. Cada sección muestra una tabla y un formulario intuitivo.
+
+La API sigue disponible bajo `/api/...` para integración con clientes externos.
+
+---
+
+### 🧪 Pruebas y calidad
+- Las pruebas básicas usan Jest y se encuentran en `__tests__/models.test.js`.
+- Ejecuta `npm test` para correr el conjunto y generar cobertura.
+- ESLint está configurado en `.eslintrc.json`; ejecuta `npm run lint` para revisar el código.
+
+Puedes ampliar tanto tests como reglas de lint según se requiera.
 
 📂 Estructura de la Base de Datos
 El sistema cuenta con 5 colecciones relacionadas:

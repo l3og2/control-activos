@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Control de Activos</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <button class="theme-toggle" id="theme-toggle">🌙</button>
+
+  <% if (user) { %>
+    <h1>🏠 Bienvenido, <%= user.username %>!</h1>
+
+    <nav>
+      <ul>
+        <li><a href="/empleados/vista">Empleados</a></li>
+        <li><a href="/categorias/vista">Categorías</a></li>
+        <li><a href="/activos/vista">Activos</a></li>
+        <li><a href="/asignaciones/vista">Asignaciones</a></li>
+        <li><a href="/mantenimientos/vista">Mantenimientos</a></li>
+      </ul>
+    </nav>
+
+    <p>Usa la API o las vistas para manejar los recursos.</p>
+
+    <a href="/logout" class="home-link">🔓 Cerrar sesión</a>
+  <% } else { %>
+    <h1>🏠 Bienvenido al panel de Control de Activos</h1>
+    <p>Inicia sesión para acceder al panel de administración.</p>
+    <a href="/login" class="btn-new">Iniciar sesión</a>
+  <% } %>
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const icon = toggle.textContent;
+
+    // Cargar tema guardado
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+      toggle.textContent = '☀️';
+    }
+
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      const isDark = body.classList.contains('dark');
+      toggle.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

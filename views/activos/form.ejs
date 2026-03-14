@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title><%= activo._id ? 'Editar' : 'Nuevo' %> Activo</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <a href="/" class="home-link">🏠 Inicio</a>
+  <button class="theme-toggle" id="theme-toggle">🌙</button>
+  <% if (typeof success !== 'undefined' && success) { %>
+    <div class="alert alert-success">
+      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      <%= message || 'Operación exitosa' %>
+    </div>
+  <% } %>
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-error">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 9l-9 7z" fill="none"/><path d="M13.59 7.58L9 12.17 6.41 9.59 5 11l4 4 8-8z"/></svg>
+      <%= message || 'Error en la operación' %>
+    </div>
+  <% } %>
+  <h1><%= activo._id ? 'Editar' : 'Crear' %> Activo</h1>
+  <form action="<%= activo._id ? '/api/activos/' + activo._id + '?_method=PUT' : '/api/activos' %>" method="post">
+    <label>Serial único: <input name="serial_unico" value="<%= activo.serial_unico || '' %>" required></label><br>
+    <label>Marca/Modelo: <input name="marca_modelo" value="<%= activo.marca_modelo || '' %>" required></label><br>
+    <label>Categoría:
+      <select name="categoria_id" required>
+        <option value="">-- selecciona --</option>
+        <% categorias.forEach(c => { %>
+          <option value="<%= c._id %>" <%= activo.categoria_id && activo.categoria_id.toString() === c._id.toString() ? 'selected' : '' %>><%= c.nombre %></option>
+        <% }) %>
+      </select>
+    </label><br>
+    <label>Estado:
+      <select name="estado">
+        <option value="Disponible" <%= activo.estado==='Disponible' ? 'selected' : '' %>>Disponible</option>
+        <option value="Asignado" <%= activo.estado==='Asignado' ? 'selected' : '' %>>Asignado</option>
+        <option value="Reparacion" <%= activo.estado==='Reparacion' ? 'selected' : '' %>>Reparación</option>
+      </select>
+    </label><br>
+    <button type="submit">Guardar</button>
+  </form>
+  <a href="/activos/vista">Cancelar</a>
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+      toggle.textContent = '☀️';
+    }
+
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      const isDark = body.classList.contains('dark');
+      toggle.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

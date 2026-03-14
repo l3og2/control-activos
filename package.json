@@ -4,7 +4,10 @@
   "description": "",
   "main": "db.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest --coverage",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
@@ -13,6 +16,14 @@
   "dependencies": {
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "mongoose": "^9.2.2"
+    "express-session": "^1.17.3",
+    "mongoose": "^9.2.2",
+    "ejs": "^3.1.10",
+    "method-override": "^3.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "eslint": "^8.0.0",
+    "nodemon": "^3.0.0"
   }
 }

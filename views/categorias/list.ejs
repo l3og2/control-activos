@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Categorías</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <a href="/" class="home-link">🏠 Inicio</a>
+  <button class="theme-toggle" id="theme-toggle">🌙</button>
+  <% if (typeof success !== 'undefined' && success) { %>
+    <div class="alert alert-success">
+      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      <%= message || 'Operación exitosa' %>
+    </div>
+  <% } %>
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-error">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 9l-9 7z" fill="none"/><path d="M13.59 7.58L9 12.17 6.41 9.59 5 11l4 4 8-8z"/></svg>
+      <%= message || 'Error en la operación' %>
+    </div>
+  <% } %>
+  <h1>Lista de Categorías</h1>
+  <a href="/categorias/nuevo" class="btn-new">+ Nueva Categoría</a>
+  <table>
+    <thead>
+      <tr><th>Nombre</th><th>Descripción</th><th>Código</th><th>Prioridad</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+      <% categorias.forEach(c => { %>
+        <tr>
+          <td><%= c.nombre %></td>
+          <td><%= c.descripcion %></td>
+          <td><%= c.codigo_area %></td>
+          <td><%= c.nivel_prioridad %></td>
+          <td>
+            <a href="/categorias/editar/<%= c._id %>">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            </a>
+            <form action="/api/categorias/<%= c._id %>?_method=DELETE" method="post" style="display:inline">
+              <button type="submit" class="btn-danger">
+                <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+              </button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+      toggle.textContent = '☀️';
+    }
+
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      const isDark = body.classList.contains('dark');
+      toggle.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>
