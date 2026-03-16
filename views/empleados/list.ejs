@@ -21,16 +21,20 @@
     </div>
   <% } %>
   <h1>Lista de Empleados</h1>
-  <a href="/empleados/nuevo" class="btn-new">+ Nuevo Empleado</a>
+  <div class="list-actions">
+    <a href="/empleados/nuevo" class="btn-new">+ Nuevo Empleado</a>
+    <a href="/empleados/carga" class="btn-new">📥 Carga masiva</a>
+  </div>
   <table>
     <thead>
-      <tr><th>Nombre</th><th>Apellido</th><th>Cédula</th><th>Cargo</th><th>Acciones</th></tr>
+      <tr><th>Nombre</th><th>Apellido</th><th>Ficha</th><th>Cédula</th><th>Cargo</th><th>Acciones</th></tr>
     </thead>
     <tbody>
       <% empleados.forEach(e => { %>
         <tr>
           <td><%= e.nombre %></td>
           <td><%= e.apellido %></td>
+          <td><%= e.ficha %></td>
           <td><%= e.cedula %></td>
           <td><%= e.cargo %></td>
           <td>

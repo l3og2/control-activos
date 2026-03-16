@@ -1,0 +1,4 @@
+serial_unico	marca_modelo	categoria	estado
+ABC123	Laptop Dell	Computadoras	Disponible
+DEF456	Monitor Samsung	Monitores	Asignado
+GHI789	Teclado Logitech	Perifericos	Reparacion

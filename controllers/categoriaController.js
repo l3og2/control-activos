@@ -30,6 +30,9 @@ exports.obtenerCategorias = async (req, res) => {
 
 exports.obtenerCategoriaPorId = async (req, res) => {
   try {
+    if (!require('mongoose').Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({ mensaje: 'ID inválido' });
+    }
     const cat = await Categoria.findById(req.params.id);
     if (!cat) return res.status(404).json({ mensaje: 'Categoría no encontrada' });
     res.status(200).json(cat);
@@ -40,6 +43,10 @@ exports.obtenerCategoriaPorId = async (req, res) => {
 
 exports.actualizarCategoria = async (req, res) => {
   try {
+    if (!require('mongoose').Types.ObjectId.isValid(req.params.id)) {
+      if (wantsHtml(req)) return res.redirect('/categorias/vista?error=1&message=' + encodeURIComponent('ID inválido'));
+      return res.status(404).json({ mensaje: 'ID inválido' });
+    }
     const actualizado = await Categoria.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!actualizado) {
       if (wantsHtml(req)) return res.redirect('/categorias/vista?error=1&message=' + encodeURIComponent('Categoría no encontrada'));
@@ -56,6 +63,10 @@ exports.actualizarCategoria = async (req, res) => {
 
 exports.eliminarCategoria = async (req, res) => {
   try {
+    if (!require('mongoose').Types.ObjectId.isValid(req.params.id)) {
+      if (wantsHtml(req)) return res.redirect('/categorias/vista?error=1&message=' + encodeURIComponent('ID inválido'));
+      return res.status(404).json({ mensaje: 'ID inválido' });
+    }
     const eliminado = await Categoria.findByIdAndDelete(req.params.id);
     if (!eliminado) {
       if (wantsHtml(req)) return res.redirect('/categorias/vista?error=1&message=' + encodeURIComponent('Categoría no encontrada'));

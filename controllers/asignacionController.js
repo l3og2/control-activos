@@ -1,12 +1,21 @@
 const Asignacion = require('../models/Asignacion');
 const Activo = require('../models/Activo');
 const Empleado = require('../models/Empleado');
+const Mantenimiento = require('../models/Mantenimiento');
 
 const wantsHtml = (req) => req.headers.accept && req.headers.accept.includes('text/html');
 
 // CREATE: nueva asignación
 exports.crearAsignacion = async (req, res) => {
   try {
+    // Verificar si el activo está en mantenimiento
+    const mantenimientoExistente = await Mantenimiento.findOne({ activo_id: req.body.activo_id });
+    if (mantenimientoExistente) {
+      const errorMsg = 'El activo está en mantenimiento y no puede ser asignado';
+      if (wantsHtml(req)) return res.redirect('/asignaciones/vista?error=1&message=' + encodeURIComponent(errorMsg));
+      return res.status(400).json({ mensaje: '❌ ' + errorMsg });
+    }
+
     const nueva = new Asignacion(req.body);
     await nueva.save();
     if (wantsHtml(req)) return res.redirect('/asignaciones/vista?success=1&message=' + encodeURIComponent('Asignación creada'));
@@ -30,6 +39,9 @@ exports.obtenerAsignaciones = async (req, res) => {
 // obtener una por id
 exports.obtenerAsignacionPorId = async (req, res) => {
   try {
+    if (!require('mongoose').Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({ mensaje: 'ID inválido' });
+    }
     const asign = await Asignacion.findById(req.params.id);
     if (!asign) return res.status(404).json({ mensaje: 'Asignación no encontrada' });
     res.status(200).json(asign);
@@ -41,6 +53,10 @@ exports.obtenerAsignacionPorId = async (req, res) => {
 // UPDATE
 exports.actualizarAsignacion = async (req, res) => {
   try {
+    if (!require('mongoose').Types.ObjectId.isValid(req.params.id)) {
+      if (wantsHtml(req)) return res.redirect('/asignaciones/vista?error=1&message=' + encodeURIComponent('ID inválido'));
+      return res.status(404).json({ mensaje: 'ID inválido' });
+    }
     const actualizado = await Asignacion.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!actualizado) {
       if (wantsHtml(req)) return res.redirect('/asignaciones/vista?error=1&message=' + encodeURIComponent('Asignación no encontrada'));
@@ -57,6 +73,10 @@ exports.actualizarAsignacion = async (req, res) => {
 // DELETE
 exports.eliminarAsignacion = async (req, res) => {
   try {
+    if (!require('mongoose').Types.ObjectId.isValid(req.params.id)) {
+      if (wantsHtml(req)) return res.redirect('/asignaciones/vista?error=1&message=' + encodeURIComponent('ID inválido'));
+      return res.status(404).json({ mensaje: 'ID inválido' });
+    }
     const eliminado = await Asignacion.findByIdAndDelete(req.params.id);
     if (!eliminado) {
       if (wantsHtml(req)) return res.redirect('/asignaciones/vista?error=1&message=' + encodeURIComponent('Asignación no encontrada'));

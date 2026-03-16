@@ -24,6 +24,7 @@
   <form action="<%= empleado._id ? '/api/empleados/' + empleado._id + '?_method=PUT' : '/api/empleados' %>" method="post">
     <label>Nombre: <input name="nombre" value="<%= empleado.nombre || '' %>" required></label><br>
     <label>Apellido: <input name="apellido" value="<%= empleado.apellido || '' %>" required></label><br>
+    <label>Ficha: <input name="ficha" value="<%= empleado.ficha || '' %>" required></label><br>
     <label>Cédula: <input name="cedula" value="<%= empleado.cedula || '' %>" required></label><br>
     <label>Cargo: <input name="cargo" value="<%= empleado.cargo || '' %>" required></label><br>
     <button type="submit">Guardar</button>

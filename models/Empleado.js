@@ -18,6 +18,11 @@ const empleadoSchema = new mongoose.Schema({
   cargo: { 
     type: String, 
     required: [true, 'Debes especificar el cargo del empleado'] 
+  },
+  ficha: {
+    type: String,
+    required: [true, 'La ficha es obligatoria'],
+    trim: true
   }
 }, {
   timestamps: true // Tip de Senior: Esto agrega automáticamente 'createdAt' y 'updatedAt'

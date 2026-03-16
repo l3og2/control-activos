@@ -30,7 +30,7 @@
       <% asignaciones.forEach(a => { %>
         <tr>
           <td><%= a.fecha_entrega.toISOString().split('T')[0] %></td>
-          <td><%= a.activo_id ? a.activo_id.serial_unico : '' %></td>
+          <td><%= a.activo_id ? (a.activo_id.serial_unico + ' - ' + a.activo_id.marca_modelo) : '' %></td>
           <td><%= a.empleado_id ? (a.empleado_id.nombre + ' ' + a.empleado_id.apellido) : '' %></td>
           <td><%= a.observaciones %></td>
           <td>

@@ -378,14 +378,55 @@ body.dark .btn-new {
   color: white;
 }
 
+.list-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
 /* Etiquetas de estado */
 .estado {
   font-weight: bold;
-  color: var(--dark-text);
+  color: #000; /* negro puro en tema claro */
 }
 
 body.dark .estado {
   color: var(--dark-text);
+}
+
+/* Colores específicos por estado */
+.estado-disponible {
+  color: #28a745; /* verde */
+}
+
+.estado-asignado {
+  color: #007bff; /* azul */
+}
+
+.estado-en-reparación {
+  color: #dc3545; /* rojo */
+}
+
+.estado-dado-de-baja {
+  color: #dc3545; /* rojo */
+}
+
+/* Ajustes para tema oscuro */
+body.dark .estado-disponible {
+  color: #a3d9a5; /* verde claro */
+}
+
+body.dark .estado-asignado {
+  color: #9ecbff; /* azul claro */
+}
+
+body.dark .estado-en-reparación {
+  color: #f5a3a3; /* rojo claro */
+}
+
+body.dark .estado-dado-de-baja {
+  color: #f5a3a3; /* rojo claro */
 }
 
 /* Botones de acción en tabla */

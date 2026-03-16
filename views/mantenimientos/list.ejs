@@ -29,7 +29,7 @@
     <tbody>
       <% mantenimientos.forEach(m => { %>
         <tr>
-          <td><%= m.activo_id ? m.activo_id.serial_unico : '' %></td>
+          <td><%= m.activo_id ? (m.activo_id.serial_unico + ' - ' + m.activo_id.marca_modelo) : '' %></td>
           <td><%= m.tecnico_encargado %></td>
           <td><%= m.fecha_servicio.toISOString().split('T')[0] %></td>
           <td><%= m.costo %></td>

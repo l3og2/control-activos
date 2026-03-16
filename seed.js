@@ -25,10 +25,10 @@ const seedData = async () => {
 
   // 3. Insertar Empleados (4 docs)
   const emps = await Empleado.insertMany([
-    { nombre: 'Juan', apellido: 'Pérez', cedula: 'V-12345', cargo: 'Analista' },
-    { nombre: 'María', apellido: 'García', cedula: 'V-67890', cargo: 'Gerente' },
-    { nombre: 'Luis', apellido: 'Rodríguez', cedula: 'V-11223', cargo: 'Desarrollador' },
-    { nombre: 'Ana', apellido: 'Martínez', cedula: 'V-44556', cargo: 'Soporte' }
+    { nombre: 'Juan', apellido: 'Pérez', cedula: 'V-12345', cargo: 'Analista', ficha: 'F-001' },
+    { nombre: 'María', apellido: 'García', cedula: 'V-67890', cargo: 'Gerente', ficha: 'F-002' },
+    { nombre: 'Luis', apellido: 'Rodríguez', cedula: 'V-11223', cargo: 'Desarrollador', ficha: 'F-003' },
+    { nombre: 'Ana', apellido: 'Martínez', cedula: 'V-44556', cargo: 'Soporte', ficha: 'F-004' }
   ]);
 
   // 4. Insertar Activos usando el ID de la categoría (4 docs)
@@ -40,14 +40,14 @@ const seedData = async () => {
   ]);
 
   // 5. Insertar asignaciones (usamos IDs de activos y empleados)
-  const asigns = await Asignacion.insertMany([
+  await Asignacion.insertMany([
     { fecha_entrega: '2025-01-15', activo_id: activos[0]._id, empleado_id: emps[0]._id, observaciones: 'Entrega inicial' },
     { fecha_entrega: '2025-02-01', activo_id: activos[1]._id, empleado_id: emps[1]._id, observaciones: 'Préstamo temporal' },
     { fecha_entrega: '2025-03-10', activo_id: activos[2]._id, empleado_id: emps[2]._id, observaciones: 'Asignación de proyecto' }
   ]);
 
   // 6. Insertar mantenimientos
-  const mantenimientos = await Mantenimiento.insertMany([
+  await Mantenimiento.insertMany([
     { activo_id: activos[3]._id, tecnico_encargado: 'Carlos Gómez', fecha_servicio: new Date('2024-12-01'), costo: 150 },
     { activo_id: activos[0]._id, tecnico_encargado: 'Ana Ruiz', fecha_servicio: new Date('2025-01-20'), costo: 75 }
   ]);

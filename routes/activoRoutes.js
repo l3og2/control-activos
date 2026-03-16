@@ -9,6 +9,8 @@ router.get('/', activoController.obtenerActivos);
 // vistas UI (antes de parametrizadas)
 router.get('/vista', activoController.listarVista);
 router.get('/nuevo', activoController.formularioNuevo);
+router.get('/carga', activoController.mostrarCargaMasiva);
+router.post('/carga', activoController.uploadFile, activoController.procesarCargaMasiva);
 router.get('/editar/:id', activoController.formularioEditar);
 
 // Ruta para la consulta sencilla (Ejemplo de uso: /api/activos/estado/Disponible)

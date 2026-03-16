@@ -1,0 +1,4 @@
+nombre	apellido	ficha	cedula	cargo
+Juan	Perez	EMP001	12345678	Desarrollador
+Maria	Garcia	EMP002	87654321	Analista
+Carlos	Lopez	EMP003	11223344	Gerente

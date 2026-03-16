@@ -21,7 +21,10 @@
     </div>
   <% } %>
   <h1>Lista de Activos</h1>
-  <a href="/activos/nuevo" class="btn-new">+ Nuevo Activo</a>
+  <div class="list-actions">
+    <a href="/activos/nuevo" class="btn-new">+ Nuevo Activo</a>
+    <a href="/activos/carga" class="btn-new">📥 Carga masiva</a>
+  </div>
   <table>
     <thead>
       <tr><th>Serial</th><th>Marca/Modelo</th><th>Categoría</th><th>Estado</th><th>Acciones</th></tr>
@@ -32,7 +35,7 @@
           <td><%= a.serial_unico %></td>
           <td><%= a.marca_modelo %></td>
           <td><%= a.categoria_id ? a.categoria_id.nombre : '' %></td>
-          <td class="estado"><%= a.estado %></td>
+          <td class="estado estado-<%= a.estado.toLowerCase().replace(/\s+/g, '-') %>"><%= a.estado %></td>
           <td>
             <a href="/activos/editar/<%= a._id %>">
               <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
